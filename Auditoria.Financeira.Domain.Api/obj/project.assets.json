@@ -107,6 +107,29 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Auditoria.Financeira.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Auditoria.Financeira.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Auditoria.Financeira.Domain.dll": {}
+        }
+      },
+      "Auditoria.Financeira.Domain.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Auditoria.Financeira.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Auditoria.Financeira.Domain.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Auditoria.Financeira.Domain.Infra.dll": {}
+        }
       }
     }
   },
@@ -451,10 +474,22 @@
         "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Auditoria.Financeira.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Auditoria.Financeira.Domain/Auditoria.Financeira.Domain.csproj",
+      "msbuildProject": "../Auditoria.Financeira.Domain/Auditoria.Financeira.Domain.csproj"
+    },
+    "Auditoria.Financeira.Domain.Infra/1.0.0": {
+      "type": "project",
+      "path": "../Auditoria.Financeira.Domain.Infra/Auditoria.Financeira.Domain.Infra.csproj",
+      "msbuildProject": "../Auditoria.Financeira.Domain.Infra/Auditoria.Financeira.Domain.Infra.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Auditoria.Financeira.Domain >= 1.0.0",
+      "Auditoria.Financeira.Domain.Infra >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.1",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
@@ -485,7 +520,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\dev\\auditoria-financeira-api\\Auditoria.Financeira.Domain.Infra\\Auditoria.Financeira.Domain.Infra.csproj": {
+              "projectPath": "C:\\dev\\auditoria-financeira-api\\Auditoria.Financeira.Domain.Infra\\Auditoria.Financeira.Domain.Infra.csproj"
+            },
+            "C:\\dev\\auditoria-financeira-api\\Auditoria.Financeira.Domain\\Auditoria.Financeira.Domain.csproj": {
+              "projectPath": "C:\\dev\\auditoria-financeira-api\\Auditoria.Financeira.Domain\\Auditoria.Financeira.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
