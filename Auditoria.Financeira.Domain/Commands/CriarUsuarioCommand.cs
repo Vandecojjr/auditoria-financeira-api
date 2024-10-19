@@ -1,4 +1,5 @@
 using Auditoria.Financeira.Domain.Commands.Contratos;
+using Auditoria.Financeira.Domain.Validations;
 
 namespace Auditoria.Financeira.Domain.Commands;
 
@@ -21,6 +22,6 @@ public class CriarUsuarioCommand : ICommand
 
     public bool Validar()
     {
-        throw new NotImplementedException();
+        return new CriarUsuarioCommandValidator().Validate(this).IsValid;
     }
 }

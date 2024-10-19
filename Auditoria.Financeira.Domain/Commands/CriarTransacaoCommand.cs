@@ -1,5 +1,7 @@
+using System;
 using Auditoria.Financeira.Domain.Commands.Contratos;
 using Auditoria.Financeira.Domain.Enum;
+using Auditoria.Financeira.Domain.Validations;
 
 namespace Auditoria.Financeira.Domain.Commands;
 
@@ -20,6 +22,6 @@ public class CriarTransacaoCommand : ICommand
     
     public bool Validar()
     {
-        throw new NotImplementedException();
+       return new CriarTransacaoCommandValidator().Validate(this).IsValid;
     }
 }
