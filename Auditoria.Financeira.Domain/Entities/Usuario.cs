@@ -1,6 +1,6 @@
 ﻿namespace Auditoria.Financeira.Domain.Entities;
 
-public class Usuario : Entidade
+public class Usuario : Entity
 {
     public Usuario(string nome, string senha,Guid contaId)
     {

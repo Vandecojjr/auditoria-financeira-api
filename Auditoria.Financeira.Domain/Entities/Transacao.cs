@@ -2,14 +2,13 @@
 
 namespace Auditoria.Financeira.Domain.Entities;
 
-public class Transacao : Entidade
+public class Transacao : Entity
 {
-    public Transacao(decimal valor, TipoDaTransacao tipo, Guid usuarioId)
+    public Transacao(decimal valor, TipoDaTransacao tipo)
     {
         Valor = valor;
         Tipo = tipo;
         Data = DateTime.Now;
-        UsuarioId = usuarioId;
     }
 
     public decimal Valor { get; private set; }

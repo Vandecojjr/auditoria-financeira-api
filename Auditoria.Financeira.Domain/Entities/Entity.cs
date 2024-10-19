@@ -1,8 +1,8 @@
 ﻿namespace Auditoria.Financeira.Domain.Entities;
 
-public abstract class Entidade : IEquatable<Entidade>
+public abstract class Entity : IEquatable<Entity>
 {
-     public Entidade()
+     public Entity()
      {
           Id = Guid.NewGuid();
      }
@@ -10,7 +10,7 @@ public abstract class Entidade : IEquatable<Entidade>
      public Guid Id { get; private set; }
 
 
-     public bool Equals(Entidade? other)
+     public bool Equals(Entity? other)
      {
           return Id == other?.Id;
      }
