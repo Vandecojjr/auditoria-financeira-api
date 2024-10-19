@@ -1,4 +1,5 @@
-﻿using Auditoria.Financeira.Domain.Enum;
+﻿using System;
+using Auditoria.Financeira.Domain.Enum;
 
 namespace Auditoria.Financeira.Domain.Entities;
 

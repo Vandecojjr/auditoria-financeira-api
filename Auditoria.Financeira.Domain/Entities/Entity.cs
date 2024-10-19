@@ -1,4 +1,6 @@
-﻿namespace Auditoria.Financeira.Domain.Entities;
+﻿using System;
+
+namespace Auditoria.Financeira.Domain.Entities;
 
 public abstract class Entity : IEquatable<Entity>
 {
