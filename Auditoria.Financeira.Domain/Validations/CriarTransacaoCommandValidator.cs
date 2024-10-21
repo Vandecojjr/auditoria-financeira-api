@@ -8,6 +8,10 @@ public class CriarTransacaoCommandValidator : AbstractValidator<CriarTransacaoCo
 {
     public CriarTransacaoCommandValidator()
     {
+        RuleFor(x => x.UsuarioId)
+            .NotEmpty()
+            .WithMessage(TransacaoErrorMessages.UsuarioIdInvalido);
+        
         RuleFor(x => x.Valor)
             .GreaterThan(0)
             .WithMessage(TransacaoErrorMessages.ValorInvalido);

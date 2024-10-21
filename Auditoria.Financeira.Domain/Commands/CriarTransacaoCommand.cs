@@ -11,14 +11,16 @@ public class CriarTransacaoCommand : ICommand
     {
     }
 
-    public CriarTransacaoCommand(decimal valor, TipoDaTransacao tipo, DateTime data)
+    public CriarTransacaoCommand(decimal valor, TipoDaTransacao tipo, Guid usuarioId)
     {
+        UsuarioId = usuarioId;
         Valor = valor;
         Tipo = tipo;
     }
 
     public decimal Valor { get; set; }
     public TipoDaTransacao Tipo { get; set; }
+    public Guid UsuarioId { get; set; }
     
     public bool Validar()
     {

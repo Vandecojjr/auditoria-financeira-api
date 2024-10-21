@@ -3,26 +3,29 @@ using Auditoria.Financeira.Domain.Commands;
 using Auditoria.Financeira.Domain.Commands.Contratos;
 using Auditoria.Financeira.Domain.Entities;
 using Auditoria.Financeira.Domain.Handlers.Contratos;
+using Auditoria.Financeira.Domain.Repositories;
 using Auditoria.Financeira.Domain.Validations;
 
 namespace Auditoria.Financeira.Domain.Handlers;
 
 public class AuditoriaFinanceiraHandler : 
     IHandler<CriarUsuarioCommand>,
-    IHandler<CriarTransacaoCommand>,
-    IHandler<AlterarSaldoEmContaDoUsuarioCommand>
+    IHandler<CriarTransacaoCommand>
 {
     public readonly CriarUsuarioCommandValidator _criarUsuarioCommandValidator;
     public readonly CriarTransacaoCommandValidator _criarTransacaoCommandValidator;
-    public readonly AlterarSaldoEmContaDoUsuarioCommandValidator _alterarSaldoEmContaDoUsuarioCommandValidator;
+    public readonly IUsuarioRepository _usuarioRepository;
+    public readonly ITransacaoRepository _transacaoRepository;
     
     public AuditoriaFinanceiraHandler(CriarUsuarioCommandValidator criarUsuarioCommandValidator,
         CriarTransacaoCommandValidator criarTransacaoCommandValidator,
-        AlterarSaldoEmContaDoUsuarioCommandValidator alterarSaldoEmContaDoUsuarioCommandValidator)    
+        IUsuarioRepository usuarioRepository,
+        ITransacaoRepository transacaoRepository)    
     {
         _criarUsuarioCommandValidator = criarUsuarioCommandValidator;
         _criarTransacaoCommandValidator = criarTransacaoCommandValidator;
-        _alterarSaldoEmContaDoUsuarioCommandValidator = alterarSaldoEmContaDoUsuarioCommandValidator;
+        _usuarioRepository = usuarioRepository;
+        _transacaoRepository = transacaoRepository;
     }
 
     public IResultadoGenericoCommand Handler(CriarUsuarioCommand command)
@@ -33,6 +36,8 @@ public class AuditoriaFinanceiraHandler :
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
         
         var usuario = new Usuario(command.Nome, command.Senha, command.SaldoEmConta);
+        _usuarioRepository.Criar(usuario);
+        
         return new ResultadoGenericoGenericoCommand(true, "Usuário criado com sucesso", usuario);
     }
 
@@ -43,16 +48,13 @@ public class AuditoriaFinanceiraHandler :
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar a transação", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
         
-        return new ResultadoGenericoGenericoCommand(true, "Transação criada com sucesso", null);
-    }
-
-    public IResultadoGenericoCommand Handler(AlterarSaldoEmContaDoUsuarioCommand command)
-    {
-        var resultado = _alterarSaldoEmContaDoUsuarioCommandValidator.Validate(command);
-        if (!resultado.IsValid)
-            return new ResultadoGenericoGenericoCommand(false," não foi possível alterar o saldo", 
-                    resultado.Errors.Select(x => x.ErrorMessage).ToList());
+        var transacao = new Transacao(command.Valor, command.Tipo);
+        _transacaoRepository.Criar(transacao);
         
-        return new ResultadoGenericoGenericoCommand(true, "Saldo alterado com sucesso", null);
+        var usuario = _usuarioRepository.BuscarPorId(command.UsuarioId);
+        usuario.AlterarSaldo(transacao.Tipo, transacao.Valor);
+        _usuarioRepository.Atualizar(usuario);        
+        
+        return new ResultadoGenericoGenericoCommand(true, "Transação criada com sucesso", transacao);
     }
 }
