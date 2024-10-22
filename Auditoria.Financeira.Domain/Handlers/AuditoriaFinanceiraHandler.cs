@@ -12,25 +12,20 @@ public class AuditoriaFinanceiraHandler :
     IHandler<CriarUsuarioCommand>,
     IHandler<CriarTransacaoCommand>
 {
-    public readonly CriarUsuarioCommandValidator _criarUsuarioCommandValidator;
-    public readonly CriarTransacaoCommandValidator _criarTransacaoCommandValidator;
     public readonly IUsuarioRepository _usuarioRepository;
     public readonly ITransacaoRepository _transacaoRepository;
     
-    public AuditoriaFinanceiraHandler(CriarUsuarioCommandValidator criarUsuarioCommandValidator,
-        CriarTransacaoCommandValidator criarTransacaoCommandValidator,
+    public AuditoriaFinanceiraHandler(
         IUsuarioRepository usuarioRepository,
         ITransacaoRepository transacaoRepository)    
     {
-        _criarUsuarioCommandValidator = criarUsuarioCommandValidator;
-        _criarTransacaoCommandValidator = criarTransacaoCommandValidator;
         _usuarioRepository = usuarioRepository;
         _transacaoRepository = transacaoRepository;
     }
 
-    public IResultadoGenericoCommand Handler(CriarUsuarioCommand command)
+    public IResultadoGenericoCommand Handle(CriarUsuarioCommand command)
     {
-        var resultado = _criarUsuarioCommandValidator.Validate(command);
+        var resultado = command.Validar();
         if (!resultado.IsValid)
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar o usuário", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
@@ -41,9 +36,9 @@ public class AuditoriaFinanceiraHandler :
         return new ResultadoGenericoGenericoCommand(true, "Usuário criado com sucesso", usuario);
     }
 
-    public IResultadoGenericoCommand Handler(CriarTransacaoCommand command)
+    public IResultadoGenericoCommand Handle(CriarTransacaoCommand command)
     {
-        var resultado = _criarTransacaoCommandValidator.Validate(command);
+        var resultado = command.Validar();
         if (!resultado.IsValid)
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar a transação", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());

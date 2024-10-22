@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Auditoria.Financeira.Domain.Commands.Contratos;
 using Auditoria.Financeira.Domain.Enum;
 using Auditoria.Financeira.Domain.Validations;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Auditoria.Financeira.Domain.Commands;
 
@@ -21,9 +23,10 @@ public class CriarTransacaoCommand : ICommand
     public decimal Valor { get; set; }
     public TipoDaTransacao Tipo { get; set; }
     public Guid UsuarioId { get; set; }
-    
-    public bool Validar()
+
+
+    public ValidationResult Validar()
     {
-       return new CriarTransacaoCommandValidator().Validate(this).IsValid;
+        return new CriarTransacaoCommandValidator().Validate(this);
     }
 }

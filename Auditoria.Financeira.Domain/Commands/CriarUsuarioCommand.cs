@@ -1,5 +1,6 @@
 using Auditoria.Financeira.Domain.Commands.Contratos;
 using Auditoria.Financeira.Domain.Validations;
+using FluentValidation.Results;
 
 namespace Auditoria.Financeira.Domain.Commands;
 
@@ -20,8 +21,8 @@ public class CriarUsuarioCommand : ICommand
     public string Senha { get; set; }
     public decimal  SaldoEmConta { get; set; }
 
-    public bool Validar()
+    public ValidationResult Validar()
     {
-        return new CriarUsuarioCommandValidator().Validate(this).IsValid;
+        return new CriarUsuarioCommandValidator().Validate(this);
     }
 }

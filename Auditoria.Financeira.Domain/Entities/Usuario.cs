@@ -9,7 +9,7 @@ public class Usuario : Entity
     {
         Nome = nome;
         Senha = senha;
-        SaldoEmConta = 0;
+        SaldoEmConta = saldoEmConta;
     }
 
     public string Nome { get; private set; }
