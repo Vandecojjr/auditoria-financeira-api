@@ -30,7 +30,7 @@ public class AuditoriaFinanceiraHandler :
 
     public IResultadoGenericoCommand Handler(CriarUsuarioCommand command)
     {
-        var resultado = _criarUsuarioCommandValidator.Validate(command);
+        var resultado = command.Validar();
         if (!resultado.IsValid)
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar o usuário", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
@@ -43,7 +43,7 @@ public class AuditoriaFinanceiraHandler :
 
     public IResultadoGenericoCommand Handler(CriarTransacaoCommand command)
     {
-        var resultado = _criarTransacaoCommandValidator.Validate(command);
+        var resultado = command.Validar();
         if (!resultado.IsValid)
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar a transação", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());

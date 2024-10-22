@@ -11,7 +11,7 @@ public class CriarUsuarioCommandValidator : AbstractValidator<CriarUsuarioComman
         RuleFor(x=> x.Nome)
             .NotEmpty()
             .WithMessage(UsuarioErrorMessages.NomeVazio)
-            .MinimumLength(6)
+            .MinimumLength(3)
             .WithMessage(UsuarioErrorMessages.NomeComTamanhoInvalido);
         
         RuleFor(x => x.Senha)
@@ -21,5 +21,13 @@ public class CriarUsuarioCommandValidator : AbstractValidator<CriarUsuarioComman
             .WithMessage(UsuarioErrorMessages.SenhaComTamanhoInvalido)
             .MaximumLength(32)
             .WithMessage(UsuarioErrorMessages.SenhaComTamanhoInvalido);
+
+        RuleFor(x => x.SaldoEmConta)
+            .GreaterThan(-1).WithMessage(UsuarioErrorMessages.SaldoEmContaInvalido);
+    }
+    
+    private bool SerNumero(string numeroComoTexto)
+    {
+        return decimal.TryParse(numeroComoTexto, out _);
     }
 }
