@@ -12,16 +12,14 @@ public class CriarTransacaoCommandTest
     [TestMethod]
     public void Dado_um_comando_invalido()
     {
-        var comando = _comandoInvalido;
-        var resultado = comando.Validar();
+        var resultado = _comandoInvalido.Validar();
         Assert.IsFalse(resultado.IsValid);
     }
     
     [TestMethod]
     public void Dado_um_comando_valido()
     {
-        var comando = _cmandoValido;
-        var resultado = comando.Validar();
+        var resultado = _cmandoValido.Validar();
         Assert.IsTrue(resultado.IsValid);
     }
 }
