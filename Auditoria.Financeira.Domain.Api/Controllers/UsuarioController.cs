@@ -34,9 +34,10 @@ public class UsuarioController : ControllerBase
     [Route("ver-saldo")]
     [HttpGet]
     [Authorize]
-    public decimal VerSaldo([FromQuery] Guid usuarioId)
+    public decimal VerSaldo()
     {
-        return _usuarioRepository.BuscarPorId(usuarioId).SaldoEmConta;
+        var usuarioId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+        return _usuarioRepository.BuscarPorId(Guid.Parse(usuarioId)).SaldoEmConta;
     }
     
     [HttpPost]
