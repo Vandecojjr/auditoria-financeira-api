@@ -1,0 +1,25 @@
+services:
+  auditoria-financeira-api:
+    build:
+      dockerfile: dockerfile
+      context: .
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: "SqlServer2019!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - volume:/var/opt/mssql
+
+volumes:
+  volume:
