@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 using Auditoria.Financeira.Domain.Api;
+using Auditoria.Financeira.Domain.Api.Service;
+using Auditoria.Financeira.Domain.Api.Service.Cointratos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,6 +84,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabas
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<ITransacaoRepository, TransacaoRepository>();
 builder.Services.AddTransient<AuditoriaFinanceiraHandler, AuditoriaFinanceiraHandler>();
+builder.Services.AddScoped<ITransacaoExportarService, TransacaoExportarService>();
 
 
 var app = builder.Build();
