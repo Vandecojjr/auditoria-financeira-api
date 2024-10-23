@@ -17,7 +17,13 @@ public class FakeUsuarioRepository : IUsuarioRepository
 
     public Usuario BuscarPorNome(string nome)
     {
-        return new Usuario("Nome", "SenhaSenha", 0);
+        var usuario = new Usuario("Nome", "SenhaSenha", 0);
+        if (nome == usuario.Nome)
+        {
+            return usuario;
+        }
+
+        return null;
     }
 
     public void Criar(Usuario usuario)
