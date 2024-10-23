@@ -6,6 +6,7 @@ using Auditoria.Financeira.Domain.Handlers;
 using Auditoria.Financeira.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Auditoria.Financeira.Domain.Api.Controllers;
 
@@ -25,6 +26,7 @@ public class TransacaoController : ControllerBase
     
     [Route("")]
     [HttpPost]
+    [SwaggerOperation(Summary = "Cadastra transações", Description = "Tipo : {Debito = 0, Saque = 1, Compra = 2}.")]
     public ResultadoGenericoGenericoCommand Criar([FromBody] CriarTransacaoCommand command)
     {
         var usuarioId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
@@ -34,6 +36,7 @@ public class TransacaoController : ControllerBase
     
     [Route("")]
     [HttpGet]
+    [SwaggerOperation(Summary = "Obtém todas as transações", Description = "Tipo : {Debito = 0, Saque = 1, Compra = 2}.")]
     public IEnumerable<Transacao> BuscarTodos([FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
         var usuarioId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
@@ -42,6 +45,7 @@ public class TransacaoController : ControllerBase
     
     [Route("buscar-por-periodo")]
     [HttpGet]
+    [SwaggerOperation(Summary = "Obtém transações por periodo", Description = "Tipo : {Debito = 0, Saque = 1, Compra = 2}.")]
     public IEnumerable<Transacao> BuscarPorPeriodo([FromQuery] DateTime dataInicial, [FromQuery] DateTime dataFinal,
         [FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
@@ -51,6 +55,7 @@ public class TransacaoController : ControllerBase
     
     [Route("buscar-por-tipo-de-transacao")]
     [HttpGet]
+    [SwaggerOperation(Summary = "Obtém transações por tipo de transação", Description = "Tipo : {Debito = 0, Saque = 1, Compra = 2}.")]
     public IEnumerable<Transacao> BuscarPorTipo([FromQuery] TipoDaTransacao tipo,
         [FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
