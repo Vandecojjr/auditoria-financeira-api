@@ -2,7 +2,7 @@
 
 public enum TipoDaTransacao
 {
-    Deposito = 1,
-    Saque = 2,
-    Compra = 3
+    Deposito,
+    Saque,
+    Compra
 }

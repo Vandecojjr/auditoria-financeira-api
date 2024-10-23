@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using Auditoria.Financeira.Domain.Enum;
 
 namespace Auditoria.Financeira.Domain.Entities;
@@ -13,8 +14,11 @@ public class Usuario : Entity
     }
 
     public string Nome { get; private set; }
+    [JsonIgnore]
     public string Senha { get; private set; }
     public decimal SaldoEmConta { get; private set; }
+    public ICollection<Transacao> Transacoes { get; set; }
+    
     
     
     public void AlterarSaldo(TipoDaTransacao tipo, decimal valor)
@@ -25,6 +29,7 @@ public class Usuario : Entity
             { TipoDaTransacao.Compra, Comprar },
             { TipoDaTransacao.Saque, Sacar }
         };
+        
         
         operacoes[tipo](valor);
     }
@@ -43,5 +48,4 @@ public class Usuario : Entity
     {
         this.SaldoEmConta -= valor;
     }
-    
 }

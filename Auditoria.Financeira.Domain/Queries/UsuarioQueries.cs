@@ -9,4 +9,14 @@ public static class UsuarioQueries
     {
         return x => x.Id == id;
     }
+
+    public static Expression<Func<Usuario, bool>> BuscarPorNomeESenha(string nome, string senha)
+    {
+        return x => x.Nome == nome && x.Senha == senha;
+    }
+    
+    public static Expression<Func<Usuario, bool>> BuscarPorNome(string nome)
+    {
+        return x => x.Nome == nome;
+    }
 } 

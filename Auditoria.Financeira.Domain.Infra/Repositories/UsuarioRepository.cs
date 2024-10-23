@@ -20,6 +20,16 @@ public class UsuarioRepository : IUsuarioRepository
         return _context.Usuarios.FirstOrDefault(UsuarioQueries.BuscarPorId(id));
     }
 
+    public Usuario BuscarPorNomeESenha(string nome, string senha)
+    {
+        return _context.Usuarios.FirstOrDefault(UsuarioQueries.BuscarPorNomeESenha(nome, senha));
+    }
+
+    public Usuario BuscarPorNome(string nome)
+    {
+        return _context.Usuarios.FirstOrDefault(UsuarioQueries.BuscarPorNome(nome));
+    }
+
     public void Criar(Usuario usuario)
     {
         _context.Usuarios.Add(usuario);

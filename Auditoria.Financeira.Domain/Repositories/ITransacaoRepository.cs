@@ -5,8 +5,8 @@ namespace Auditoria.Financeira.Domain.Repositories;
 
 public interface ITransacaoRepository
 {
-    public void Criar(Transacao usuario); 
-    public void Deletar(Transacao usuario);
+    public void Criar(Transacao transacao); 
+    public void Deletar(Transacao transacao);
     
     public Transacao BuscarPorId(Guid id);
     public IEnumerable<Transacao> BuscarTodas(Guid id, int skip = 1, int take = 10);

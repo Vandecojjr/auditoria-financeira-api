@@ -10,6 +10,16 @@ public class FakeUsuarioRepository : IUsuarioRepository
         return new Usuario("Nome", "SenhaSenha", 0);
     }
 
+    public Usuario BuscarPorNomeESenha(string nome, string senha)
+    {
+        return new Usuario("Nome", "SenhaSenha", 0);
+    }
+
+    public Usuario BuscarPorNome(string nome)
+    {
+        return new Usuario("Nome", "SenhaSenha", 0);
+    }
+
     public void Criar(Usuario usuario)
     {
     }
