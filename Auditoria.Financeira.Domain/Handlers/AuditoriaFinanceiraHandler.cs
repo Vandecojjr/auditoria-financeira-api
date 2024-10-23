@@ -26,7 +26,8 @@ public class AuditoriaFinanceiraHandler :
     public IResultadoGenericoCommand Handle(CriarUsuarioCommand command)
     {
         var resultado = command.Validar();
-        if (!resultado.IsValid)
+        var pssivelUusuario = _usuarioRepository.BuscarPorNome(command.Nome);
+        if (!resultado.IsValid || pssivelUusuario != null)
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar o usuário", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
         
@@ -43,7 +44,7 @@ public class AuditoriaFinanceiraHandler :
             return new ResultadoGenericoGenericoCommand(false,"Não foi possível criar a transação", 
                     resultado.Errors.Select(x => x.ErrorMessage).ToList());
         
-        var transacao = new Transacao(command.Valor, command.Tipo);
+        var transacao = new Transacao(command.Valor, command.Tipo, command.UsuarioId);
         _transacaoRepository.Criar(transacao);
         
         var usuario = _usuarioRepository.BuscarPorId(command.UsuarioId);
